@@ -28,6 +28,8 @@ console.log("Mongo is connected 😍!!!  ");
 
 app.use(express.json());
 
+app.use("/movies", moviesRouter);
+
 app.get("/", function (request, response) {
   response.send("🙋‍♂️, 🌏 🎊✨🤩,HELLO SHAJAN😍😊");
 });
@@ -142,7 +144,5 @@ app.get("/", function (request, response) {
 //     id: "109",
 //   },
 // ];
-
-app.use("/movies", moviesRouter);
 
 app.listen(PORT, () => console.log(`The server started in: ${PORT} ✨✨`));
