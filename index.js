@@ -7,7 +7,12 @@ import { MongoClient } from "mongodb";
 
 const app = express();
 
-const PORT = 4000;
+// const PORT = 4000;
+
+// for vrercel
+
+const PORT = process.env.PORT; //auto assignable port
+
 const MONGO_URL = process.env.MONGO_URL;
 // const MONGO_URL = "mongodb://127.0.0.1";
 
@@ -194,21 +199,6 @@ app.delete("/movies/:id", async function (request, response) {
     ? response.send({ message: "movie deleted succesfully" })
     : response.status(404).send({ message: "movie not found" });
 });
-
-// post method to create data
-
-// app.post("/movies", async function (request, response) {
-//   const data1 = request.body;
-
-//   const addOneMovie = await client
-//     .db("b42wd20")
-//     .collection("movies")
-//     .insertOne(data1);
-
-//   response.send(addOneMovie);
-// });
-
-// update method
 
 app.put("/movies/:id", async function (request, response) {
   const { id } = request.params;
