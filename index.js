@@ -7,6 +7,8 @@ import { MongoClient } from "mongodb";
 
 import moviesRouter from "./router/movies.router.js";
 
+import cors from "cors";
+
 const app = express();
 
 // const PORT = 4000;
@@ -27,6 +29,8 @@ console.log("Mongo is connected 😍!!!  ");
 // globel declecerction
 
 app.use(express.json());
+
+app.use(cors());
 
 app.use("/movies", moviesRouter);
 
