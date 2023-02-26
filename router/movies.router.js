@@ -8,15 +8,15 @@ import {
 } from "../service/getMovies.js";
 const router = express.Router();
 
-router.get("/movies", async function (request, response) {
+router.get("/", async function (request, response) {
   const movies = await getMovies();
 
-  // console.log(movies);
+  console.log(movies);
 
   response.send(movies);
 });
 
-router.get("/movies/:id", async function (request, response) {
+router.get("/:id", async function (request, response) {
   console.log();
 
   const { id } = request.params;
@@ -32,7 +32,7 @@ router.get("/movies/:id", async function (request, response) {
 
 // post method to create data
 
-router.post("/movies", async function (request, response) {
+router.post("/", async function (request, response) {
   const data = request.body;
 
   const result = await createMovies(data);
@@ -42,7 +42,7 @@ router.post("/movies", async function (request, response) {
 
 // deletee method to delete data
 
-router.delete("/movies/:id", async function (request, response) {
+router.delete("/:id", async function (request, response) {
   const { id } = request.params;
 
   console.log(id);
@@ -55,7 +55,7 @@ router.delete("/movies/:id", async function (request, response) {
     : response.status(404).send({ message: "movie not found" });
 });
 
-router.put("/movies/:id", async function (request, response) {
+router.put("/:id", async function (request, response) {
   const { id } = request.params;
   const data1 = request.body;
   console.log(id);
