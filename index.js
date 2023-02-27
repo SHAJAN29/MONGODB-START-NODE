@@ -14,6 +14,7 @@ const app = express();
 // const PORT = 4000;
 
 // for vrercel
+// for vrercel deployment
 
 const PORT = process.env.PORT; //auto assignable port
 
