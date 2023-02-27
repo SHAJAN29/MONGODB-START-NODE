@@ -28,10 +28,8 @@ await client.connect(); // call
 console.log("Mongo is connected 😍!!!  ");
 
 // globel declecerction
-
-app.use(express.json());
-
 app.use(cors());
+app.use(express.json());
 
 app.use("/movies", moviesRouter);
 
