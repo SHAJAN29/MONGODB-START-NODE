@@ -6,8 +6,10 @@ import express from "express"; // "type": "module"
 import { MongoClient } from "mongodb";
 
 import moviesRouter from "./router/movies.router.js";
-
+import usersRouter from "./router/users.router.js";
 import cors from "cors";
+
+import bcrypt from "bcrypt";
 
 const app = express();
 
@@ -32,6 +34,8 @@ app.use(cors());
 app.use(express.json());
 
 app.use("/movies", moviesRouter);
+
+app.use("/users", usersRouter);
 
 app.get("/", function (request, response) {
   response.send("🙋‍♂️, 🌏 🎊✨🤩,HELLO SHAJAN😍😊");
