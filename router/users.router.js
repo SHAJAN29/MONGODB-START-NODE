@@ -1,5 +1,5 @@
 import express from "express";
-import { createUsers } from "../service/createUsers.js";
+import { createUsers, getUserByname } from "../service/createUsers.js";
 import bcrypt from "bcrypt";
 
 const router = express.Router();
@@ -22,14 +22,46 @@ async function generatepassword(password) {
 router.post("/signup", async function (request, response) {
   const { username, password } = request.body;
 
-  const hashedpassword = await generatepassword(password);
+  const userFromDB = await getUserByname(username);
 
-  const result = await createUsers({
-    username: username,
-    password: hashedpassword,
-  });
+  console.log(userFromDB);
 
-  response.send(result);
+  if (userFromDB) {
+    response.status(400).send({ error: "use another username" });
+  } else if (password.length < 8) {
+    response.status(400).send({ error: "password must be under 8charsw" });
+  } else {
+    const hashedpassword = await generatepassword(password);
+
+    const result = await createUsers({
+      username: username,
+      password: hashedpassword,
+    });
+
+    response.send(result);
+  }
+});
+
+router.post("/login", async function (request, response) {
+  const { username, password } = request.body;
+
+  const userFromDB = await getUserByname(username);
+
+  console.log(userFromDB);
+
+  if (userFromDB === null) {
+    response.status(400).send({ message: "invalid credintials" });
+  } else {
+    const storedPasseord = userFromDB.password;
+
+    const isPasswordCheck = await bcrypt.compare(password, storedPasseord);
+
+    console.log(isPasswordCheck);
+
+    if (isPasswordCheck) {
+      response.send({ message: "login sucessfull" });
+    } else response.status(400).send({ message: "invalid credintials" });
+  }
 });
 
 // // deletee method to delete data
