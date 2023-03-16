@@ -7,6 +7,7 @@ import { MongoClient } from "mongodb";
 
 import moviesRouter from "./router/movies.router.js";
 import usersRouter from "./router/users.router.js";
+import bookMyShowAppRouter from "./router/BookMyShow.router.js";
 import cors from "cors";
 
 import bcrypt from "bcrypt";
@@ -36,6 +37,8 @@ app.use(express.json());
 app.use("/movies", moviesRouter);
 
 app.use("/users", usersRouter);
+
+app.use("/bookingmovie", bookMyShowAppRouter);
 
 app.get("/", function (request, response) {
   response.send("🙋‍♂️, 🌏 🎊✨🤩,HELLO SHAJAN😍😊");
@@ -151,5 +154,9 @@ app.get("/", function (request, response) {
 //     id: "109",
 //   },
 // ];
+
+// app.get("/booking-movie", function (request, response) {
+//   response.send(movies);
+// });
 
 app.listen(PORT, () => console.log(`The server started in: ${PORT} ✨✨`));

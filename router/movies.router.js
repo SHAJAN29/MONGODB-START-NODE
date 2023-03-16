@@ -6,9 +6,10 @@ import {
   deleteMovieByID,
   updateMovieByID,
 } from "../service/getMovies.js";
+import { auth } from "./middleware/auth.js";
 const router = express.Router();
 
-router.get("/", async function (request, response) {
+router.get("/", auth, async function (request, response) {
   const movies = await getMovies();
 
   console.log(movies);

@@ -1,6 +1,7 @@
 import express from "express";
 import { createUsers, getUserByname } from "../service/createUsers.js";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
 const router = express.Router();
 
@@ -59,7 +60,8 @@ router.post("/login", async function (request, response) {
     console.log(isPasswordCheck);
 
     if (isPasswordCheck) {
-      response.send({ message: "login sucessfull" });
+      const webToken = jwt.sign({ id: userFromDB._id }, process.env.SECRETKEY);
+      response.send({ message: "susscefull login", token: webToken });
     } else response.status(400).send({ message: "invalid credintials" });
   }
 });
